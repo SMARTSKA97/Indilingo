@@ -1,0 +1,18 @@
+{
+  "language": "ta",
+  "items": [
+    { "id": "vocab:vanakkam", "text": "வணக்கம்", "translit": "vanakkam", "meaning": "hello", "cefr": "A1" },
+    { "id": "vocab:nandri", "text": "நன்றி", "translit": "nandri", "meaning": "thank you", "cefr": "A1" },
+    { "id": "vocab:aamaam", "text": "ஆமாம்", "translit": "aamaam", "meaning": "yes", "cefr": "A1" },
+    { "id": "vocab:illai", "text": "இல்லை", "translit": "illai", "meaning": "no", "cefr": "A1" },
+    { "id": "vocab:naan", "text": "நான்", "translit": "naan", "meaning": "I", "cefr": "A1" },
+    { "id": "vocab:neengal", "text": "நீங்கள்", "translit": "neengal", "meaning": "you (formal)", "cefr": "A1" },
+    { "id": "vocab:thanneer", "text": "தண்ணீர்", "translit": "thanneer", "meaning": "water", "cefr": "A1" },
+    { "id": "vocab:kaapi", "text": "காபி", "translit": "kaapi", "meaning": "coffee", "cefr": "A1" },
+    { "id": "vocab:kudi", "text": "குடி", "translit": "kudi", "meaning": "drink (verb stem)", "cefr": "A1", "morphemes": ["குடி", "க்கிற்", "ஏன்"] },
+    { "id": "vocab:en", "text": "என்", "translit": "en", "meaning": "my", "cefr": "A1" },
+    { "id": "vocab:peyar", "text": "பெயர்", "translit": "peyar", "meaning": "name", "cefr": "A1" },
+    { "id": "vocab:enna", "text": "என்ன", "translit": "enna", "meaning": "what", "cefr": "A1" },
+    { "id": "vocab:yaar", "text": "யார்", "translit": "yaar", "meaning": "who", "cefr": "A1" }
+  ]
+}

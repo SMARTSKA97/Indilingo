@@ -1,0 +1,11 @@
+{
+  "appId": "uk.ska97homelab.indilingo",
+  "appName": "Indilingo",
+  "webDir": "../web/dist/web/browser",
+  "android": {
+    "allowMixedContent": false
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

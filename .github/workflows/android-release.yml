@@ -1,0 +1,93 @@
+name: Android release
+
+# Run by hand: pick how big the change is. It raises the version, builds a signed APK,
+# and publishes it as a GitHub Release that the app's updater picks up.
+on:
+  workflow_dispatch:
+    inputs:
+      bump:
+        description: Version change
+        type: choice
+        options: [patch, minor, major]
+        default: patch
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: Raise the Android version
+        id: version
+        run: echo "name=$(node tools/bump-android-version.mjs ${{ inputs.bump }})" >> "$GITHUB_OUTPUT"
+
+      - name: Check the changelog has notes for this version
+        run: |
+          if ! grep -q "^## \[${{ steps.version.outputs.name }}\]" CHANGELOG.md; then
+            echo "CHANGELOG.md has no '## [${{ steps.version.outputs.name }}]' section. Add one and run again."
+            exit 1
+          fi
+
+      - name: Build the web app
+        run: |
+          npm ci
+          npx ng build
+          printf 'window.INDILINGO_CONFIG = { apiBaseUrl: "%s/api" };\n' "${{ vars.API_URL }}" > dist/web/browser/config.js
+        working-directory: web
+
+      - name: Copy the web app into the Android project
+        run: |
+          npm ci
+          npx cap sync android
+        working-directory: mobile
+
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 21
+
+      - name: Decode the signing key
+        run: echo "${{ secrets.ANDROID_KEYSTORE_BASE64 }}" | base64 -d > "$RUNNER_TEMP/indilingo.jks"
+
+      - name: Build the signed APK
+        env:
+          INDILINGO_KEYSTORE_PATH: ${{ runner.temp }}/indilingo.jks
+          INDILINGO_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          INDILINGO_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          INDILINGO_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+        run: ./gradlew assembleRelease
+        working-directory: mobile/android
+
+      - name: Prepare release notes
+        run: |
+          awk -v v="${{ steps.version.outputs.name }}" '
+            $0 ~ "^## \\[" v "\\]" { found=1; next }
+            found && /^## \[/ { exit }
+            found { print }
+          ' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
+          cp mobile/android/app/build/outputs/apk/release/app-release.apk "$RUNNER_TEMP/indilingo-${{ steps.version.outputs.name }}.apk"
+
+      - name: Save the new version
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add mobile/version.json
+          git commit -m "Android ${{ steps.version.outputs.name }}"
+          git tag "android-v${{ steps.version.outputs.name }}"
+          git push origin HEAD --tags
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "android-v${{ steps.version.outputs.name }}" \
+            "$RUNNER_TEMP/indilingo-${{ steps.version.outputs.name }}.apk" \
+            --title "Indilingo ${{ steps.version.outputs.name }}" \
+            --notes-file "$RUNNER_TEMP/notes.md"

@@ -1,0 +1,17 @@
+{
+  "name": "indilingo-tools",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Content validation and tooling for Indilingo",
+  "scripts": {
+    "validate": "node validate-content.mjs ../content",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "ajv": "^8.17.1"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

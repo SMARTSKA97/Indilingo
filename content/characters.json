@@ -1,0 +1,15 @@
+{
+  "note": "Ten speakers. Animal names are proposals; human names are still to be chosen. Voices are assigned after the P1 voice test, so every voice is null for now.",
+  "speakers": [
+    { "id": "tigris", "kind": "mascot", "species": "Bengal tiger (Panthera tigris tigris)", "name": "Tigris", "role": "lead guide", "voice": null },
+    { "id": "otis", "kind": "animal", "species": "elephant", "name": "Otis", "role": "proposed name", "voice": null },
+    { "id": "fennel", "kind": "animal", "species": "fox", "name": "Fennel", "role": "proposed name", "voice": null },
+    { "id": "milo", "kind": "animal", "species": "monkey", "name": "Milo", "role": "proposed name", "voice": null },
+    { "id": "man1", "kind": "human", "name": null, "role": "adult man", "voice": null },
+    { "id": "man2", "kind": "human", "name": null, "role": "adult man", "voice": null },
+    { "id": "woman1", "kind": "human", "name": null, "role": "adult woman", "voice": null },
+    { "id": "woman2", "kind": "human", "name": null, "role": "adult woman", "voice": null },
+    { "id": "boy", "kind": "human", "name": null, "role": "boy", "voice": null },
+    { "id": "girl", "kind": "human", "name": null, "role": "girl", "voice": null }
+  ]
+}

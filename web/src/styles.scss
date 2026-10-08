@@ -1,0 +1,142 @@
+// Design tokens. Light by default, dark when the device prefers it, and either can be forced
+// with data-theme on <html>. Every colour used in the app comes from these tokens.
+
+:root {
+  --font-ui: system-ui, -apple-system, 'Segoe UI', Roboto, 'Noto Sans Tamil', sans-serif;
+  --font-tamil: 'Noto Sans Tamil', system-ui, sans-serif;
+
+  --color-bg: #fffaf3;
+  --color-surface: #ffffff;
+  --color-surface-2: #fff1de;
+  --color-text: #2a1a0e;
+  --color-text-muted: #6f5a47;
+  --color-border: #ecd9c2;
+  --color-brand: #f28c28;
+  --color-brand-strong: #c96a0a;
+  --color-on-brand: #2a1a0e;
+  --color-accent: #2f8f6b;
+  --color-danger: #b3261e;
+  --color-focus: #1a73e8;
+
+  --radius: 14px;
+  --radius-sm: 10px;
+  --shadow: 0 1px 2px rgb(60 30 0 / 8%), 0 4px 14px rgb(60 30 0 / 6%);
+  --space: 16px;
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --color-bg: #17110b;
+    --color-surface: #221a12;
+    --color-surface-2: #2d2217;
+    --color-text: #fbeedd;
+    --color-text-muted: #c4aa90;
+    --color-border: #44331f;
+    --color-brand: #f6a03d;
+    --color-brand-strong: #ffb860;
+    --color-on-brand: #1c1208;
+    --color-accent: #5fcf9f;
+    --color-danger: #ff8a80;
+    --color-focus: #8ab4f8;
+    --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 4px 14px rgb(0 0 0 / 30%);
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  --color-bg: #17110b;
+  --color-surface: #221a12;
+  --color-surface-2: #2d2217;
+  --color-text: #fbeedd;
+  --color-text-muted: #c4aa90;
+  --color-border: #44331f;
+  --color-brand: #f6a03d;
+  --color-brand-strong: #ffb860;
+  --color-on-brand: #1c1208;
+  --color-accent: #5fcf9f;
+  --color-danger: #ff8a80;
+  --color-focus: #8ab4f8;
+  --shadow: 0 1px 2px rgb(0 0 0 / 40%), 0 4px 14px rgb(0 0 0 / 30%);
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html { font-size: 100%; -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-ui);
+  line-height: 1.55;
+  min-height: 100vh;
+}
+
+:lang(ta), .tamil { font-family: var(--font-tamil); line-height: 1.7; }
+
+h1, h2, h3 { line-height: 1.2; margin: 0 0 0.5em; }
+h1 { font-size: 1.9rem; }
+h2 { font-size: 1.35rem; }
+p { margin: 0 0 1em; }
+a { color: var(--color-brand-strong); }
+
+:focus-visible { outline: 3px solid var(--color-focus); outline-offset: 2px; border-radius: 6px; }
+
+.skip-link {
+  position: absolute; left: -999px; top: 8px; background: var(--color-surface); padding: 8px 12px; border-radius: 8px; z-index: 10;
+  &:focus { left: 8px; }
+}
+
+.app-header {
+  display: flex; align-items: center; gap: var(--space); flex-wrap: wrap;
+  padding: 10px var(--space); background: var(--color-surface); border-bottom: 1px solid var(--color-border);
+  position: sticky; top: 0; z-index: 5;
+
+  .brand { font-weight: 800; font-size: 1.3rem; text-decoration: none; color: var(--color-brand-strong); }
+  nav { display: flex; gap: 4px; flex: 1; flex-wrap: wrap; }
+  nav a { text-decoration: none; color: var(--color-text-muted); padding: 6px 10px; border-radius: 999px; }
+  nav a.active { background: var(--color-surface-2); color: var(--color-text); font-weight: 600; }
+  .header-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+}
+
+main { max-width: 960px; margin: 0 auto; padding: 24px var(--space) 64px; }
+
+.card {
+  background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius);
+  padding: 20px; box-shadow: var(--shadow);
+}
+.stack { display: grid; gap: var(--space); }
+.row { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+.muted { color: var(--color-text-muted); }
+.center { text-align: center; }
+.narrow { max-width: 440px; margin: 0 auto; }
+
+button, .button {
+  font: inherit; font-weight: 700; cursor: pointer; border: 0; border-radius: var(--radius-sm);
+  padding: 12px 18px; background: var(--color-brand); color: var(--color-on-brand);
+  box-shadow: 0 3px 0 var(--color-brand-strong); text-decoration: none; display: inline-block; text-align: center;
+  &:active { transform: translateY(2px); box-shadow: 0 1px 0 var(--color-brand-strong); }
+  &:disabled { opacity: 0.55; cursor: not-allowed; }
+  &.secondary { background: var(--color-surface-2); color: var(--color-text); box-shadow: 0 3px 0 var(--color-border); }
+  &.ghost { background: transparent; color: var(--color-text); box-shadow: none; padding: 6px 10px; font-weight: 600; border-radius: 999px; }
+  &.ghost:hover { background: var(--color-surface-2); }
+}
+
+label { display: grid; gap: 6px; font-weight: 600; }
+input, select {
+  font: inherit; padding: 11px 12px; border-radius: var(--radius-sm); border: 2px solid var(--color-border);
+  background: var(--color-surface); color: var(--color-text); width: 100%;
+  &:focus-visible { border-color: var(--color-focus); outline: none; }
+}
+.hint { font-weight: 400; font-size: 0.85rem; color: var(--color-text-muted); }
+.error { color: var(--color-danger); font-weight: 600; }
+.notice { background: var(--color-surface-2); border-radius: var(--radius-sm); padding: 12px 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+}
+:root[data-motion='reduced'] *, :root[data-motion='reduced'] *::before, :root[data-motion='reduced'] *::after {
+  animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important;
+}

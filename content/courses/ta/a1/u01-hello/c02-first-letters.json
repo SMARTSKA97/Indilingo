@@ -1,0 +1,59 @@
+{
+  "id": "ta-a1-u1-c2",
+  "course": "en-ta",
+  "section": 1,
+  "unit": 1,
+  "chapter": 2,
+  "title": "First letters",
+  "goal": "Recognise the first three Tamil vowels and match them to their sounds.",
+  "cefr": "A1",
+  "reviewStatus": "draft",
+  "lessons": [
+    {
+      "position": 1,
+      "kind": "lesson",
+      "exercises": [
+        {
+          "id": "ta-a1-u1-c2-l1-e1",
+          "type": "script_recognition",
+          "skills": ["reading"],
+          "cefr": "A1",
+          "register": "neutral",
+          "glyph": "அ",
+          "options": [
+            { "id": "a", "text": "a" },
+            { "id": "b", "text": "aa" },
+            { "id": "c", "text": "i" }
+          ],
+          "correct": "a"
+        },
+        {
+          "id": "ta-a1-u1-c2-l1-e2",
+          "type": "script_recognition",
+          "skills": ["reading"],
+          "cefr": "A1",
+          "register": "neutral",
+          "glyph": "ஆ",
+          "options": [
+            { "id": "a", "text": "a" },
+            { "id": "b", "text": "aa" },
+            { "id": "c", "text": "i" }
+          ],
+          "correct": "b"
+        },
+        {
+          "id": "ta-a1-u1-c2-l1-e3",
+          "type": "script_sound_match",
+          "skills": ["reading"],
+          "cefr": "A1",
+          "register": "neutral",
+          "pairs": [
+            { "glyph": "அ", "sound": "a" },
+            { "glyph": "ஆ", "sound": "aa" },
+            { "glyph": "இ", "sound": "i" }
+          ]
+        }
+      ]
+    }
+  ]
+}

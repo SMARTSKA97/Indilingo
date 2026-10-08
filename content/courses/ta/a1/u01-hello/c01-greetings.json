@@ -1,0 +1,181 @@
+{
+  "id": "ta-a1-u1-c1",
+  "course": "en-ta",
+  "section": 1,
+  "unit": 1,
+  "chapter": 1,
+  "title": "Greetings",
+  "goal": "Say hello and thank you, answer yes and no, and introduce yourself by name.",
+  "cefr": "A1",
+  "reviewStatus": "draft",
+  "lessons": [
+    {
+      "position": 1,
+      "kind": "lesson",
+      "exercises": [
+        {
+          "id": "ta-a1-u1-c1-l1-e1",
+          "type": "multiple_choice",
+          "skills": ["reading"],
+          "cefr": "A1",
+          "register": "neutral",
+          "items": ["vocab:vanakkam"],
+          "prompt": { "lang": "en", "text": "Hello" },
+          "options": [
+            { "id": "a", "text": "வணக்கம்", "translit": "vanakkam" },
+            { "id": "b", "text": "நன்றி", "translit": "nandri" },
+            { "id": "c", "text": "ஆமாம்", "translit": "aamaam" },
+            { "id": "d", "text": "இல்லை", "translit": "illai" }
+          ],
+          "correct": "a"
+        },
+        {
+          "id": "ta-a1-u1-c1-l1-e2",
+          "type": "multiple_choice",
+          "skills": ["reading"],
+          "cefr": "A1",
+          "register": "neutral",
+          "items": ["vocab:nandri"],
+          "translit": "nandri",
+          "prompt": { "lang": "ta", "text": "நன்றி" },
+          "options": [
+            { "id": "a", "text": "Hello" },
+            { "id": "b", "text": "Thank you" },
+            { "id": "c", "text": "Yes" }
+          ],
+          "correct": "b"
+        },
+        {
+          "id": "ta-a1-u1-c1-l1-e3",
+          "type": "listen_select",
+          "skills": ["listening"],
+          "cefr": "A1",
+          "register": "neutral",
+          "items": ["vocab:vanakkam"],
+          "translit": "vanakkam",
+          "audio": { "lang": "ta", "text": "வணக்கம்", "speaker": "tigris" },
+          "options": [
+            { "id": "a", "text": "Hello" },
+            { "id": "b", "text": "Thank you" },
+            { "id": "c", "text": "Yes" },
+            { "id": "d", "text": "No" }
+          ],
+          "correct": "a"
+        },
+        {
+          "id": "ta-a1-u1-c1-l1-e4",
+          "type": "match_pairs",
+          "skills": ["reading"],
+          "cefr": "A1",
+          "register": "neutral",
+          "items": ["vocab:vanakkam", "vocab:nandri", "vocab:aamaam", "vocab:illai"],
+          "leftLang": "ta",
+          "rightLang": "en",
+          "pairs": [
+            { "left": "வணக்கம்", "right": "Hello", "translit": "vanakkam" },
+            { "left": "நன்றி", "right": "Thank you", "translit": "nandri" },
+            { "left": "ஆமாம்", "right": "Yes", "translit": "aamaam" },
+            { "left": "இல்லை", "right": "No", "translit": "illai" }
+          ]
+        },
+        {
+          "id": "ta-a1-u1-c1-l1-e5",
+          "type": "translate_wordbank",
+          "skills": ["reading", "writing"],
+          "cefr": "A1",
+          "register": "neutral",
+          "items": ["vocab:aamaam", "vocab:nandri"],
+          "translit": "aamaam nandri",
+          "prompt": { "lang": "en", "text": "Yes, thank you." },
+          "answer": { "lang": "ta", "accepted": [["ஆமாம்", "நன்றி"]] },
+          "distractors": ["இல்லை", "வணக்கம்"]
+        },
+        {
+          "id": "ta-a1-u1-c1-l1-e6",
+          "type": "translate_type",
+          "skills": ["writing"],
+          "cefr": "A1",
+          "register": "neutral",
+          "items": ["vocab:vanakkam"],
+          "translit": "vanakkam",
+          "prompt": { "lang": "en", "text": "Hello" },
+          "answer": { "lang": "ta", "accepted": ["வணக்கம்"] }
+        }
+      ]
+    },
+    {
+      "position": 2,
+      "kind": "lesson",
+      "exercises": [
+        {
+          "id": "ta-a1-u1-c1-l2-e1",
+          "type": "translate_wordbank",
+          "skills": ["reading", "writing"],
+          "cefr": "A1",
+          "register": "neutral",
+          "items": ["vocab:naan", "vocab:thanneer", "vocab:kudi"],
+          "translit": "naan thanneer kudikkiren",
+          "prompt": { "lang": "en", "text": "I drink water." },
+          "answer": { "lang": "ta", "accepted": [["நான்", "தண்ணீர்", "குடிக்கிறேன்"]] },
+          "distractors": ["காபி", "நீங்கள்"],
+          "explanation": "Tamil puts the verb last: I, water, drink."
+        },
+        {
+          "id": "ta-a1-u1-c1-l2-e2",
+          "type": "fill_blank",
+          "skills": ["reading"],
+          "cefr": "A1",
+          "register": "neutral",
+          "items": ["vocab:naan"],
+          "sentence": { "lang": "ta", "text": "___ தண்ணீர் குடிக்கிறேன்." },
+          "meaning": "I drink water.",
+          "options": [
+            { "id": "a", "text": "நான்", "translit": "naan" },
+            { "id": "b", "text": "நீங்கள்", "translit": "neengal" },
+            { "id": "c", "text": "காபி", "translit": "kaapi" }
+          ],
+          "correct": "a",
+          "explanation": "The verb ending -ஏன் in குடிக்கிறேன் goes with நான் (I)."
+        },
+        {
+          "id": "ta-a1-u1-c1-l2-e3",
+          "type": "listen_type",
+          "skills": ["listening", "writing"],
+          "cefr": "A1",
+          "register": "neutral",
+          "items": ["vocab:nandri"],
+          "translit": "nandri",
+          "audio": { "lang": "ta", "text": "நன்றி", "speaker": "otis" },
+          "answer": { "lang": "ta", "accepted": ["நன்றி"] }
+        },
+        {
+          "id": "ta-a1-u1-c1-l2-e4",
+          "type": "multiple_choice",
+          "skills": ["reading"],
+          "cefr": "A1",
+          "register": "neutral",
+          "items": ["vocab:peyar"],
+          "prompt": { "lang": "en", "text": "name" },
+          "options": [
+            { "id": "a", "text": "பெயர்", "translit": "peyar" },
+            { "id": "b", "text": "யார்", "translit": "yaar" },
+            { "id": "c", "text": "என்ன", "translit": "enna" }
+          ],
+          "correct": "a"
+        },
+        {
+          "id": "ta-a1-u1-c1-l2-e5",
+          "type": "translate_wordbank",
+          "skills": ["reading", "writing"],
+          "cefr": "A1",
+          "register": "neutral",
+          "items": ["vocab:en", "vocab:peyar"],
+          "translit": "en peyar Ravi",
+          "prompt": { "lang": "en", "text": "My name is Ravi." },
+          "answer": { "lang": "ta", "accepted": [["என்", "பெயர்", "ரவி"]] },
+          "distractors": ["நீங்கள்", "என்ன"]
+        }
+      ]
+    }
+  ]
+}

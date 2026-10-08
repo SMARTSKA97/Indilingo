@@ -1,0 +1,20 @@
+# .NET
+bin/
+obj/
+*.user
+.vs/
+
+# Node / Angular
+node_modules/
+web/dist/
+web/.angular/
+tools/node_modules/
+mobile/node_modules/
+mobile/android/app/build/
+mobile/android/.gradle/
+
+# Secrets and local settings
+.env
+*.keystore
+*.jks
+appsettings.*.local.json

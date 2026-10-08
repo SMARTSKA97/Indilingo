@@ -1,0 +1,257 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://indilingo.ska97homelab.uk/schema/chapter.schema.json",
+  "title": "Indilingo chapter",
+  "description": "A chapter file: one chapter with its lessons and exercises. Courses are laid out as content/courses/<lang>/<section>/<unit>/<chapter>.json.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["id", "course", "section", "unit", "chapter", "title", "goal", "cefr", "reviewStatus", "lessons"],
+  "properties": {
+    "id": { "$ref": "#/$defs/contentId" },
+    "course": { "type": "string", "pattern": "^[a-z]{2,3}-[a-z]{2,3}$", "description": "source-target language, e.g. en-ta" },
+    "section": { "type": "integer", "minimum": 1 },
+    "unit": { "type": "integer", "minimum": 1 },
+    "chapter": { "type": "integer", "minimum": 1 },
+    "title": { "type": "string", "minLength": 1, "maxLength": 120 },
+    "goal": { "type": "string", "minLength": 1 },
+    "cefr": { "$ref": "#/$defs/cefr" },
+    "reviewStatus": { "enum": ["draft", "in_review", "published"] },
+    "lessons": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/lesson" }
+    }
+  },
+  "$defs": {
+    "contentId": { "type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$", "maxLength": 64 },
+    "cefr": { "enum": ["A1", "A2", "B1", "B2", "C1", "C2"] },
+    "skill": { "enum": ["reading", "listening", "speaking", "writing"] },
+    "lang": { "type": "string", "pattern": "^[a-z]{2,3}$" },
+    "text": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lang", "text"],
+      "properties": {
+        "lang": { "$ref": "#/$defs/lang" },
+        "text": { "type": "string", "minLength": 1 }
+      }
+    },
+    "spokenText": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["lang", "text", "speaker"],
+      "properties": {
+        "lang": { "$ref": "#/$defs/lang" },
+        "text": { "type": "string", "minLength": 1 },
+        "speaker": { "type": "string", "pattern": "^[a-z0-9]+$" }
+      }
+    },
+    "option": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "text"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9]+$" },
+        "text": { "type": "string", "minLength": 1 },
+        "translit": { "type": "string" }
+      }
+    },
+    "options": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 6,
+      "items": { "$ref": "#/$defs/option" }
+    },
+    "lesson": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["position", "kind", "exercises"],
+      "properties": {
+        "position": { "type": "integer", "minimum": 1 },
+        "kind": { "enum": ["lesson", "chapter_test", "unit_test", "section_exam"] },
+        "exercises": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/exercise" }
+        }
+      }
+    },
+    "exercise": {
+      "type": "object",
+      "required": ["id", "type", "skills", "cefr"],
+      "properties": {
+        "id": { "$ref": "#/$defs/contentId" },
+        "type": {
+          "enum": [
+            "multiple_choice", "translate_wordbank", "translate_type", "listen_type", "listen_select",
+            "match_pairs", "fill_blank", "script_recognition", "script_sound_match", "speak"
+          ]
+        },
+        "skills": { "type": "array", "minItems": 1, "uniqueItems": true, "items": { "$ref": "#/$defs/skill" } },
+        "cefr": { "$ref": "#/$defs/cefr" },
+        "register": { "enum": ["spoken", "written", "neutral"] },
+        "items": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^(vocab|grammar):[a-z0-9]+$" },
+          "description": "Vocabulary and grammar items this exercise trains; spaced repetition tracks these."
+        },
+        "translit": { "type": "string" },
+        "explanation": { "type": "string", "description": "Shown by the Why? button." }
+      },
+      "oneOf": [
+        { "$ref": "#/$defs/multipleChoice" },
+        { "$ref": "#/$defs/translateWordbank" },
+        { "$ref": "#/$defs/translateType" },
+        { "$ref": "#/$defs/listenType" },
+        { "$ref": "#/$defs/listenSelect" },
+        { "$ref": "#/$defs/matchPairs" },
+        { "$ref": "#/$defs/fillBlank" },
+        { "$ref": "#/$defs/scriptRecognition" },
+        { "$ref": "#/$defs/scriptSoundMatch" },
+        { "$ref": "#/$defs/speak" }
+      ]
+    },
+    "multipleChoice": {
+      "properties": {
+        "type": { "const": "multiple_choice" },
+        "prompt": { "$ref": "#/$defs/text" },
+        "options": { "$ref": "#/$defs/options" },
+        "correct": { "type": "string" }
+      },
+      "required": ["prompt", "options", "correct"]
+    },
+    "translateWordbank": {
+      "properties": {
+        "type": { "const": "translate_wordbank" },
+        "prompt": { "$ref": "#/$defs/text" },
+        "answer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["lang", "accepted"],
+          "properties": {
+            "lang": { "$ref": "#/$defs/lang" },
+            "accepted": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+            }
+          }
+        },
+        "distractors": { "type": "array", "items": { "type": "string", "minLength": 1 } },
+        "audio": { "$ref": "#/$defs/spokenText" }
+      },
+      "required": ["prompt", "answer"]
+    },
+    "translateType": {
+      "properties": {
+        "type": { "const": "translate_type" },
+        "prompt": { "$ref": "#/$defs/text" },
+        "answer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["lang", "accepted"],
+          "properties": {
+            "lang": { "$ref": "#/$defs/lang" },
+            "accepted": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+          }
+        }
+      },
+      "required": ["prompt", "answer"]
+    },
+    "listenType": {
+      "properties": {
+        "type": { "const": "listen_type" },
+        "audio": { "$ref": "#/$defs/spokenText" },
+        "answer": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["lang", "accepted"],
+          "properties": {
+            "lang": { "$ref": "#/$defs/lang" },
+            "accepted": { "type": "array", "minItems": 1, "items": { "type": "string", "minLength": 1 } }
+          }
+        }
+      },
+      "required": ["audio", "answer"]
+    },
+    "listenSelect": {
+      "properties": {
+        "type": { "const": "listen_select" },
+        "audio": { "$ref": "#/$defs/spokenText" },
+        "options": { "$ref": "#/$defs/options" },
+        "correct": { "type": "string" }
+      },
+      "required": ["audio", "options", "correct"]
+    },
+    "matchPairs": {
+      "properties": {
+        "type": { "const": "match_pairs" },
+        "pairs": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["left", "right"],
+            "properties": {
+              "left": { "type": "string", "minLength": 1 },
+              "right": { "type": "string", "minLength": 1 },
+              "translit": { "type": "string" }
+            }
+          }
+        },
+        "leftLang": { "$ref": "#/$defs/lang" },
+        "rightLang": { "$ref": "#/$defs/lang" }
+      },
+      "required": ["pairs", "leftLang", "rightLang"]
+    },
+    "fillBlank": {
+      "properties": {
+        "type": { "const": "fill_blank" },
+        "sentence": { "$ref": "#/$defs/text" },
+        "meaning": { "type": "string" },
+        "options": { "$ref": "#/$defs/options" },
+        "correct": { "type": "string" }
+      },
+      "required": ["sentence", "options", "correct"]
+    },
+    "scriptRecognition": {
+      "properties": {
+        "type": { "const": "script_recognition" },
+        "glyph": { "type": "string", "minLength": 1 },
+        "options": { "$ref": "#/$defs/options" },
+        "correct": { "type": "string" }
+      },
+      "required": ["glyph", "options", "correct"]
+    },
+    "scriptSoundMatch": {
+      "properties": {
+        "type": { "const": "script_sound_match" },
+        "pairs": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 6,
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["glyph", "sound"],
+            "properties": {
+              "glyph": { "type": "string", "minLength": 1 },
+              "sound": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      },
+      "required": ["pairs"]
+    },
+    "speak": {
+      "properties": {
+        "type": { "const": "speak" },
+        "target": { "$ref": "#/$defs/spokenText" },
+        "prompt": { "$ref": "#/$defs/text" }
+      },
+      "required": ["target", "prompt"]
+    }
+  }
+}

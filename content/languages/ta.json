@@ -1,0 +1,40 @@
+{
+  "code": "ta",
+  "nameEnglish": "Tamil",
+  "nameNative": "தமிழ்",
+  "script": "Tamil",
+  "unicodeRange": ["U+0B80", "U+0BFF"],
+  "ttsLocale": "ta-IN",
+  "standardDialect": "Tamil Nadu standard",
+  "defaultRegister": "spoken",
+  "registers": ["spoken", "written"],
+  "font": "Noto Sans Tamil",
+  "keyboard": { "layout": "tamil99", "transliterationInput": true },
+  "romanization": {
+    "scheme": "learner",
+    "note": "Draft learner scheme: uppercase marks retroflex sounds (N, L, R); 'th' is the dental t; 'zh' is ழ. Final map to be reviewed by the Tamil reviewer before P1 ships typing exercises."
+  },
+  "letters": {
+    "vowels": ["அ", "ஆ", "இ", "ஈ", "உ", "ஊ", "எ", "ஏ", "ஐ", "ஒ", "ஓ", "ஔ"],
+    "vowelSigns": ["", "ா", "ி", "ீ", "ு", "ூ", "ெ", "ே", "ை", "ொ", "ோ", "ௌ"],
+    "consonants": ["க", "ங", "ச", "ஞ", "ட", "ண", "த", "ந", "ப", "ம", "ய", "ர", "ல", "வ", "ழ", "ள", "ற", "ன"],
+    "special": ["ஃ"],
+    "pulli": "்",
+    "grantha": ["ஜ", "ஷ", "ஸ", "ஹ", "க்ஷ"]
+  },
+  "confusablePairs": [
+    ["ல", "ள", "ழ"],
+    ["ண", "ன", "ந"],
+    ["ர", "ற"],
+    ["ட", "த"]
+  ],
+  "voices": {
+    "provider": "to be decided by the P1 voice test",
+    "speakers": {}
+  },
+  "grapheme": {
+    "segmenter": "Intl.Segmenter",
+    "normalization": "NFC",
+    "note": "A syllable such as கி is two code points; exercises must tokenise by grapheme cluster."
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "indilingo-mobile",
+  "private": true,
+  "version": "0.1.0",
+  "description": "Capacitor shell that wraps the Angular web app as an Android app.",
+  "scripts": {
+    "sync": "cap sync android",
+    "open": "cap open android"
+  },
+  "dependencies": {
+    "@capacitor/android": "^7.0.0",
+    "@capacitor/core": "^7.0.0"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^7.0.0"
+  }
+}

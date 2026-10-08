@@ -1,0 +1,33 @@
+# Local development: database plus the Flyway migrations.
+#   docker compose up -d db
+#   docker compose --profile tools run --rm migrate
+# Then run the API (dotnet run) and the web app (npm start) from their folders.
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: indilingo
+      POSTGRES_USER: indilingo
+      POSTGRES_PASSWORD: indilingo
+    ports:
+      - "5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U indilingo -d indilingo"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  migrate:
+    image: flyway/flyway:11
+    profiles: ["tools"]
+    depends_on:
+      db:
+        condition: service_healthy
+    command: -url=jdbc:postgresql://db:5432/indilingo -user=indilingo -password=indilingo -connectRetries=10 migrate
+    volumes:
+      - ./db/migrations:/flyway/sql:ro
+
+volumes:
+  dbdata:
